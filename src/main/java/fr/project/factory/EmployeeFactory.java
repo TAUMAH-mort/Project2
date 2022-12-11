@@ -14,5 +14,4 @@ public class EmployeeFactory {
         }
         return new Employee.Builder().setName(name).setMandatoryNumber(MandatoryNumber).build();
     }
-
 }
