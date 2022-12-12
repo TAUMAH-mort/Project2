@@ -32,7 +32,7 @@ public class EmployeeDBRepository implements IEmployeeDBRepository{
     @Override
     public EmployeeDB read(String s) {
         for (EmployeeDB r : employeeDBS){
-            if(r.getEmployee().equals(s))
+            if(r.getID().equals(s))
                 return r;
         }
         return null;
@@ -40,7 +40,7 @@ public class EmployeeDBRepository implements IEmployeeDBRepository{
 
     @Override
     public EmployeeDB update(EmployeeDB employeeDB) {
-        EmployeeDB oldRace = read(String.valueOf(employeeDB.getEmployee()));
+        EmployeeDB oldRace = read(employeeDB.getID());
         if(employeeDB != null){
             employeeDBS.remove(oldRace);
             employeeDBS.add(employeeDB);

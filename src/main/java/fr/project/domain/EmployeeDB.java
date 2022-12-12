@@ -3,6 +3,8 @@ package fr.project.domain;
 import java.io.Serializable;
 
 public class EmployeeDB implements Serializable {
+
+    private String ID;
     private Employee employee;
     private EmployeeDemographic employeeDemographic;
     private EmployeeContact employeeContact;
@@ -16,6 +18,11 @@ public class EmployeeDB implements Serializable {
         this.employeeAdress = builder.employeeAdress;
         this.employeeID = builder.employeeID;
         this.employeePosition = builder.employeePosition;
+        this.ID = builder.ID;
+    }
+
+    public String getID() {
+        return ID;
     }
 
     public Employee getEmployee() {
@@ -44,9 +51,10 @@ public class EmployeeDB implements Serializable {
 
     @Override
     public String toString() {
-        return ""+employee + employeeDemographic + employeeContact + employeeAdress + employeeID + employeePosition;
+        return ""+employee + employeeDemographic + employeeContact + employeeAdress + employeeID + employeePosition + "ID : "+ID+"\n";
     }
     public static class  Builder {
+        private String ID;
         private Employee employee;
         private EmployeeDemographic employeeDemographic;
         private EmployeeContact employeeContact;
@@ -76,6 +84,10 @@ public class EmployeeDB implements Serializable {
         }
         public Builder setEmployeePosition(EmployeePosition employeePosition) {
             this.employeePosition = employeePosition;
+            return this;
+        }
+        public Builder setID(String ID) {
+            this.ID = ID;
             return this;
         }
         public EmployeeDB build(){

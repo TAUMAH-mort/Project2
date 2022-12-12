@@ -14,4 +14,10 @@ public class Helper {
     public static String generateName(){
         return UUID.randomUUID().toString();
     }
+
+    public static String generateId() {
+        UUID uuid = UUID.randomUUID();
+        String id = uuid.toString();
+        return id;
+    }
 }

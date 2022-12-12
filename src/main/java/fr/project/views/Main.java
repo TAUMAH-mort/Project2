@@ -64,5 +64,6 @@ public class Main{
     public static void main(String[] args) {
         loadEmployeeDB();
         System.out.println(repository6.getAll());
+        repository6.delete("");
     }
 }
