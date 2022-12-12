@@ -4,7 +4,7 @@ import fr.project.domain.*;
 import fr.project.factory.*;
 import fr.project.repository.*;
 
-public class Main {
+public class Main{
     public static EmployeeRepository repository = EmployeeRepository.getRepository();
     public static void loadEmployee (){
         Employee employee1 = EmployeeFactory.createEmployee("Tomah",1);
@@ -50,10 +50,6 @@ public class Main {
     }
     public static void main(String[] args) {
         loadEmployee();
-        loadEmployeeDemographic();
-        loadEmployeeContact();
-        loadEmployeeAdress();
-        loadEmployeeID();
-        loadEmployeePosition();
+
     }
 }
