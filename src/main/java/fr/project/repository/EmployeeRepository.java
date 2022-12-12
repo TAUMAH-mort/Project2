@@ -52,6 +52,7 @@ public class EmployeeRepository implements IEmployeeRepository{
         EmployeeDB.remove(employeeToDelete);
         return true;
     }
+
     @Override
     public List<Employee> getAll() {
         return EmployeeDB;

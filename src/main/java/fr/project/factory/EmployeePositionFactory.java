@@ -8,14 +8,14 @@ public class EmployeePositionFactory {
     public static EmployeePosition createEmployeePosition(String Title, int PositionCode, String Status){
         String s = Helper.generateName();
         if(Helper.isNullOrEmpty(String.valueOf(PositionCode))){
-            return new EmployeePosition.Builder().setTitle(Title).setPositionCode(PositionCode).setStatus("OPEN").build();
+            return null;
         }
         if(Helper.isNullOrEmpty(Title)){
             return null;
         }
         if(Helper.isNullOrEmpty(Status)){
-            return new EmployeePosition.Builder().setTitle(Title).setPositionCode(PositionCode).setStatus("CLOSED").build();
+            return null;
         }
-        return new EmployeePosition.Builder().setTitle(Title).setPositionCode(PositionCode).setStatus("CLOSED").build();
+        return new EmployeePosition.Builder().setTitle(Title).setPositionCode(PositionCode).setStatus(Status).build();
     }
 }

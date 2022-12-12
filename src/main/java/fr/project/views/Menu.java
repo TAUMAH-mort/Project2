@@ -4,11 +4,12 @@ import fr.project.domain.*;
 import fr.project.factory.*;
 import fr.project.repository.*;
 
+import java.util.List;
 import java.util.Scanner;
 
 public class Menu {
     public static EmployeeRepository repository = EmployeeRepository.getRepository();
-    public static void loadEmployee (){
+    public static Employee loadEmployee (){
         Scanner scanner = new Scanner(System.in);
         System.out.println("Enter the name of the employee : ");
         String name = scanner.next();
@@ -16,10 +17,10 @@ public class Menu {
         int MandatoryNumber = scanner.nextInt();
         Employee employee = EmployeeFactory.createEmployee(name,MandatoryNumber);
         repository.create(employee);
-        System.out.println(employee);
+        return employee;
     }
     public static EmployeeDemographicRepository repository1 = EmployeeDemographicRepository.getRepository();
-    public static void loadEmployeeDemographic(){
+    public static EmployeeDemographic loadEmployeeDemographic(){
         Scanner scanner = new Scanner(System.in);
         System.out.println("Enter the gender of the employee : ");
         String Gender = scanner.next();
@@ -27,10 +28,10 @@ public class Menu {
         String Race = scanner.next();
         EmployeeDemographic employeeDemographic = EmployeeDemographicFactory.createEmployeeDemographic(Gender,Race);
         repository1.create(employeeDemographic);
-        System.out.println(employeeDemographic);
+        return employeeDemographic;
     }
     public static EmployeeContactRepository repository2 = EmployeeContactRepository.getRepository();
-    public static void loadEmployeeContact(){
+    public static EmployeeContact loadEmployeeContact(){
         Scanner scanner = new Scanner(System.in);
         System.out.println("Enter the cell phone number of the employee : ");
         String CellPhoneNumber = scanner.next();
@@ -40,21 +41,21 @@ public class Menu {
         int HomeNumber = Integer.parseInt(scanner.next());
         EmployeeContact employeeContact = EmployeeContactFactory.createEmployeeContact(CellPhoneNumber,Email,HomeNumber);
         repository2.create(employeeContact);
-        System.out.println(employeeContact);
+        return employeeContact;
     }
     public static EmployeeAdressRepository repository3 = EmployeeAdressRepository.getRepository();
-    public static void loadEmployeeAdress(){
+    public static EmployeeAdress loadEmployeeAdress(){
         Scanner scanner = new Scanner(System.in);
         System.out.println("Enter the street address of the employee : ");
-        String StreetAddress = scanner.next();
+        String StreetAddress = scanner.nextLine();
         System.out.println("Enter the postal address of the employee : ");
         int PostalAddress = scanner.nextInt();
         EmployeeAdress employeeAdress = EmployeeAdressFactory.createEmployeeAdress(StreetAddress,PostalAddress);
         repository3.create(employeeAdress);
-        System.out.println(employeeAdress);
+        return employeeAdress;
     }
     public static EmployeeIDRepository repository4 = EmployeeIDRepository.getRepository();
-    public static void loadEmployeeID(){
+    public static EmployeeID loadEmployeeID(){
         Scanner scanner = new Scanner(System.in);
         System.out.println("Enter the type of ID of the employee : ");
         String TypeOfID = scanner.next();
@@ -62,18 +63,31 @@ public class Menu {
         String ValueOfID = scanner.next();
         EmployeeID employeeID = EmployeeIDFactory.createEmployeeID(TypeOfID,ValueOfID);
         repository4.create(employeeID);
-        System.out.println(employeeID);
+        return employeeID;
     }
     public static EmployeePositionRepository repository5 = EmployeePositionRepository.getRepository();
-    public static void loadEmployeePosition(){
+    public static EmployeePosition loadEmployeePosition(){
         Scanner scanner = new Scanner(System.in);
         System.out.println("Enter the title of the employee : ");
         String Title = scanner.next();
         System.out.println("Enter the position code of the employee : ");
         int PositionCode = scanner.nextInt();
-        EmployeePosition employeePosition = EmployeePositionFactory.createEmployeePosition(Title,PositionCode,"");
-        repository5.create(employeePosition);
-        System.out.println(employeePosition);
+        if(PositionCode == 0){
+            EmployeePosition employeePosition = EmployeePositionFactory.createEmployeePosition(Title,PositionCode,"OPEN");
+            repository5.create(employeePosition);
+            return employeePosition;
+        }
+        else {
+            EmployeePosition employeePosition = EmployeePositionFactory.createEmployeePosition(Title, PositionCode, "CLOSED");
+            repository5.create(employeePosition);
+            return employeePosition;
+        }
+    }
+    public static EmployeeDBRepository repository6 = EmployeeDBRepository.getRepository();
+
+    public static void loadEmployeeDB(){
+        EmployeeDB employeeDB = EmployeeDBFactory.createEmployeeDB(loadEmployee(),loadEmployeeDemographic(),loadEmployeeContact(),loadEmployeeAdress(),loadEmployeeID(),loadEmployeePosition());
+        repository6.create(employeeDB);
     }
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
@@ -105,33 +119,20 @@ public class Menu {
                 case 3:
                     System.out.println("Welcome in the Data Storage Layer (Repository)\n");
                 case 4:
-                    loadEmployee();
-                    repository.getAll();
-                    loadEmployeeDemographic();
-                    repository1.getAll();
-                    loadEmployeeContact();
-                    repository2.getAll();
-                    loadEmployeeAdress();
-                    repository3.getAll();
-                    loadEmployeeID();
-                    repository4.getAll();
-                    loadEmployeePosition();
-                    repository5.getAll();
+                    loadEmployeeDB();
                     System.out.println("If you want to display all employee information enter 5 : ");
                     choice = sc.nextInt();
                     break;
                 case 5:
-                    System.out.println(repository.getAll());
-                    System.out.println(repository1.getAll());
-                    System.out.println(repository2.getAll());
-                    System.out.println(repository3.getAll());
-                    System.out.println(repository4.getAll());
-                    System.out.println(repository5.getAll());
-                    System.out.println("If you want to update an employee enter 6 : ");
+                    System.out.println(repository6.getAll());
+                    System.out.println("If you want to delete an employee enter 6 : ");
                     choice = sc.nextInt();
                     break;
                 case 6:
-
+                    Scanner scanner = new Scanner(System.in);
+                    System.out.println("Enter the name of the employee you want to delete : ");
+                    repository6.delete(scanner.next());
+                    System.out.println(repository6.getAll());
             }
         }
     }

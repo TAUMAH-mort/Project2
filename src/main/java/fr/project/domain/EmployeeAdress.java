@@ -9,7 +9,7 @@ public class EmployeeAdress implements Serializable {
     private EmployeeAdress(){
     }
     private EmployeeAdress(Builder builder){
-        this.StreetAdress =builder.StreetAdress;
+        this.StreetAdress = builder.StreetAdress;
         this.PostalAdress = builder.PostalAdress;
     }
     public String getStreetAdress() {
