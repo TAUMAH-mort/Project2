@@ -20,6 +20,7 @@ public class EmployeeContact {
         return Email;
     }
     public int getHomeNumber() {
+
         return HomeNumber;
     }
     @Override
